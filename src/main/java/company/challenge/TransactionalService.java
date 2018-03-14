@@ -12,6 +12,7 @@ import java.time.Instant;
 import java.util.Map;
 import java.util.concurrent.ConcurrentSkipListMap;
 
+import static java.time.Instant.ofEpochMilli;
 import static java.util.Optional.ofNullable;
 
 @Slf4j
@@ -34,10 +35,9 @@ class TransactionalService {
     public StatisticsDTO getStatistics() {
         long windowStartTimestamp = Instant.now().minusMillis(statisticsWindowSize).toEpochMilli();
 
-
         // change to use DB for ceiling entry calc
         Statistics statistics = ofNullable(cache.ceilingEntry(windowStartTimestamp))
-                .map(v -> logAndProxy(v, "Found in cache")) //TODOO
+                .map(v -> logAndProxy(v, "Found in cache")) //TODO
                 .map(Map.Entry::getValue).orElse(getStatistics(windowStartTimestamp));
 
         StatisticsDTO statisticsDTO = new StatisticsDTO();
@@ -78,6 +78,12 @@ class TransactionalService {
         // drop all the records older than now - 60 in DB
         // drop all the records older than now - 60 in cache
         cache.put(transactionDTO.getTimestamp(), getStatistics(transactionDTO.getTimestamp()));
+        printCache(transactionDTO.getTimestamp());
+    }
+
+    private void printCache(long timestamp) {
+        log.debug("time: {}", ofEpochMilli(timestamp).toString());
+        cache.forEach((key, value) -> log.debug("{} -> {}", key, value));
     }
 
 }

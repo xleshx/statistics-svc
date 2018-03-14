@@ -32,7 +32,6 @@ public class StatisticsController {
     @RequestMapping(method = POST, path = "/transactions", consumes = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public void createTransaction(@RequestBody TransactionDTO transactionDTO) {
-        // Service layer can be introduced at this point, not introduced for simplicity reasons
         service.save(transactionDTO);
     }
 
