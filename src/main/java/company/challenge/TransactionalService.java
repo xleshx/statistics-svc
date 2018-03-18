@@ -36,9 +36,13 @@ class TransactionalService {
         long windowStartTimestamp = Instant.now().minusMillis(statisticsWindowSize).toEpochMilli();
 
         // change to use DB for ceiling entry calc
-        Statistics statistics = ofNullable(cache.ceilingEntry(windowStartTimestamp))
-                .map(v -> logAndProxy(v, "Found in cache")) //TODO
-                .map(Map.Entry::getValue).orElse(getStatistics(windowStartTimestamp));
+//        Statistics statistics = ofNullable(cache.ceilingEntry(windowStartTimestamp))
+//                .map(v -> logAndProxy(v, "Found in cache")) //TODO
+//                .map(Map.Entry::getValue).orElse(getStatistics(windowStartTimestamp));
+
+        Long firstInWindow = repo.findDistinctFirstByTimestampAfter(windowStartTimestamp).getTimestamp();
+
+        Statistics statistics = cache.getOrDefault(firstInWindow, getStatistics(windowStartTimestamp));
 
         StatisticsDTO statisticsDTO = new StatisticsDTO();
         statisticsDTO.setSum(statistics.getSum());

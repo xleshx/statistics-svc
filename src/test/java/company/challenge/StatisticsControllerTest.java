@@ -14,10 +14,10 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.time.Instant;
 import java.util.Date;
 
-import static org.hamcrest.Matchers.greaterThanOrEqualTo;
-import static org.hamcrest.Matchers.lessThanOrEqualTo;
+import static org.hamcrest.Matchers.*;
 import static org.hamcrest.core.Is.is;
 import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -32,6 +32,14 @@ public class StatisticsControllerTest {
 
     @Autowired
     TransactionRepository repo;
+
+    @Test
+    public void createTransactionFailsOlderThan60() throws Exception {
+        long olderBy61Sec = Instant.now().minusSeconds(61).toEpochMilli();
+        mvc.perform(MockMvcRequestBuilders.post("/transactions")
+                .content("{\"amount\":1000,\"timestamp\":" + olderBy61Sec + "}").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent());
+    }
 
     @Test
     public void createTransactionCheckStatus() throws Exception {

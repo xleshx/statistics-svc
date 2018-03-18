@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+import java.time.Instant;
 import java.util.Iterator;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -25,13 +27,12 @@ public class StatisticsController {
 
     @RequestMapping(method = GET, path = "/statistics", produces = APPLICATION_JSON_VALUE)
     public StatisticsDTO get() {
-        log.debug("Getting statistics");
         return service.getStatistics();
     }
 
     @RequestMapping(method = POST, path = "/transactions", consumes = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public void createTransaction(@RequestBody TransactionDTO transactionDTO) {
+    public void createTransaction(@RequestBody @Valid TransactionDTO transactionDTO) {
         service.save(transactionDTO);
     }
 
