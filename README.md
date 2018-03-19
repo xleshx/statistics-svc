@@ -1,14 +1,15 @@
 ### What is this repository for? ###
-Simple service built on Spring stack that returns statistics for calculated for last 60 secords of data.
+Simple service built on Spring stack which returns statistics calculated for the last 60 seconds
 
 ### Run ###
 
-./gradlew clean build && java -jar build/libs/statistics-svc-0.1.0.jar.jar
+./gradlew clean build && java -jar build/libs/statistics-svc-0.1.0.jar
 
 
 ### Check the code ###
 
-In order to comfortable look through the code lombok support for IDE is recommended 
+Project uses Lombok.
+In order to comfortable look through the code use IDE plugins  
 
 ### Contact ###
 
