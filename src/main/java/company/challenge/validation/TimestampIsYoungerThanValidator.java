@@ -13,6 +13,7 @@ public class TimestampIsYoungerThanValidator implements ConstraintValidator<Time
         this.threshold = annotation.value();
     }
 
+    // implementation has to be changed in order to inject Clock impl using LocalValidatorFactoryBean
     @Override
     public boolean isValid(Long value, ConstraintValidatorContext context) {
         long thresholdTs = Instant.now().minusMillis(threshold).toEpochMilli();

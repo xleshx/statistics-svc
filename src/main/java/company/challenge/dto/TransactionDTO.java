@@ -5,8 +5,8 @@ import lombok.Data;
 
 @Data
 public class TransactionDTO {
-       Long amount;
+       double amount;
 
        @TimestampIsYoungerThan(value = 60 * 1000, message = "Transaction timestamp is older than expected")
-       Long timestamp;
+       long timestamp;
 }

@@ -4,9 +4,9 @@ import lombok.Data;
 
 @Data
 public class StatisticsDTO {
-    long sum;
+    double sum;
     double avg;
-    long max;
-    long min;
+    double max;
+    double min;
     long count;
 }

@@ -13,3 +13,17 @@ In order to comfortable look through the code lombok support for IDE is recommen
 ### Contact ###
 
 alexey.lesh@gmail.com
+
+
+curl -X POST -d '{"amount":1000,"timestamp":12341234123}' localhost:8080/transactions
+curl -d '{"amount":1000,"timestamp":12341234123}' -H "Content-Type: application/json" -X POST http://localhost:8080/transactions
+0144 -> 100
+0005 -> 200 
+
+1115 -> 100
+1455 -> 100
+1788 -> 100
+
+2115 -> 200
+2455 -> 200
+2788 -> 200

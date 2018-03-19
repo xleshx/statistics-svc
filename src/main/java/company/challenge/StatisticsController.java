@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.time.Instant;
-import java.util.Iterator;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -22,8 +20,12 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @RestController
 public class StatisticsController {
 
+    private final StatisticsService service;
+
     @Autowired
-    TransactionalService service;
+    public StatisticsController(StatisticsService service) {
+        this.service = service;
+    }
 
     @RequestMapping(method = GET, path = "/statistics", produces = APPLICATION_JSON_VALUE)
     public StatisticsDTO get() {

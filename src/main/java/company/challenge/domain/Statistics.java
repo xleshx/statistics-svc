@@ -1,12 +1,13 @@
 package company.challenge.domain;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
 public class Statistics {
-    long sum;
+    double sum;
     double avg;
-    long max;
-    long min;
+    double max;
+    double min;
     long count;
 }
