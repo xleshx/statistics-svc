@@ -25,8 +25,8 @@ class StatisticsService {
     private int statisticsWindowSize = 60;
 
     // custom fork join thread pool has to be configured later
-    @Value("${statistics.parallelism.threshold:4}")
-    private int parallelThreshold = 4;
+    @Value("${statistics.parallelism.threshold:20}")
+    private int parallelThreshold = 20;
 
     private final Clock clock;
 
