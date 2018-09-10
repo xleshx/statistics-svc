@@ -8,7 +8,7 @@ buildscript {
 }
 
 plugins {
-    id 'io.franzbecker.gradle-lombok' version '1.11'
+    id 'io.franzbecker.gradle-lombok' version '1.14'
     id 'java'
 }
 
@@ -25,12 +25,16 @@ repositories {
     mavenCentral()
 }
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 1.11
+targetCompatibility = 1.11
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     testCompile("junit:junit")
     testCompile 'org.mockito:mockito-core:2.16.0'
     testCompile("org.springframework.boot:spring-boot-starter-test")
+}
+
+lombok {
+    version = "1.18.2"
 }
