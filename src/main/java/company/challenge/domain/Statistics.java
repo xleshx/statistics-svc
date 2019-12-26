@@ -1,6 +1,5 @@
 package company.challenge.domain;
 
-import lombok.Builder;
 import lombok.Data;
 
 @Data
