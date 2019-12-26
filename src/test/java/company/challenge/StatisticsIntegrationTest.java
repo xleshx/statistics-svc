@@ -45,7 +45,7 @@ public class StatisticsIntegrationTest {
     private ConcurrentHashMap<Long, Statistics> cache;
 
     @BeforeEach
-    public void clearCache(){
+    public void clearCache() {
         cache.clear();
     }
 

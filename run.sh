@@ -13,7 +13,7 @@ JVM_OPTIONS="\
  -XX:HeapDumpPath=/srv/app/logs/heapd.hprof"
 
 APP_NAME=statistics-svc
-JAR=$APP_NAME-0.1.0.jar
+JAR=$APP_NAME.jar
 SPRING_PROFILES=prod
 
 java \

@@ -11,7 +11,7 @@ RUN ./gradlew build
 FROM adoptopenjdk/openjdk13-openj9:jdk-13.0.1_9_openj9-0.17.0-alpine-slim
 MAINTAINER lesh<alexey.lesh@gmail.com>
 
-COPY --from=builder builddir/build/libs/statistics-svc-0.1.0.jar /srv/app/
+COPY --from=builder builddir/build/libs/statistics-svc.jar /srv/app/
 
 WORKDIR /srv/app
 
