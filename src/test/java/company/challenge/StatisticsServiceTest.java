@@ -3,8 +3,10 @@ package company.challenge;
 import company.challenge.domain.Statistics;
 import company.challenge.dto.StatisticsDTO;
 import company.challenge.dto.TransactionDTO;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.time.Clock;
@@ -17,8 +19,7 @@ import static java.time.Instant.parse;
 import static java.time.ZoneOffset.UTC;
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static java.util.stream.LongStream.rangeClosed;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class StatisticsServiceTest {
 
@@ -30,7 +31,7 @@ public class StatisticsServiceTest {
 
     private double DELTA = 0.01;
 
-    @Before
+    @BeforeEach
     public void setup() {
         clock = Clock.fixed(parse("2018-03-18T12:00:00Z"), UTC);
         cache = new ConcurrentHashMap<>(60);

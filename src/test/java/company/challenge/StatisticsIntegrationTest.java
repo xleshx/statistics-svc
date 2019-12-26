@@ -3,17 +3,14 @@ package company.challenge;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import company.challenge.domain.Statistics;
-import company.challenge.domain.Transaction;
 import company.challenge.dto.TransactionDTO;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.json.JacksonJsonParser;
-import org.springframework.boot.json.JsonParser;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -29,7 +26,7 @@ import static org.hamcrest.core.Is.is;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
 public class StatisticsIntegrationTest {
@@ -46,7 +43,6 @@ public class StatisticsIntegrationTest {
     @Autowired
     private ConcurrentHashMap<Long, Statistics> cache;
 
-    @Test
     public void createTransactionFailsOlderThan60() throws Exception {
         long olderBy61Sec = clock.instant().minusSeconds(61).toEpochMilli();
         mvc.perform(MockMvcRequestBuilders.post("/transactions")
