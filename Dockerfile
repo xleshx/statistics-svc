@@ -1,28 +1,22 @@
-FROM base-jdk11:latest AS builder
+#FROM base-jdk11:latest AS builder
+FROM adoptopenjdk/openjdk13-openj9:jdk-13.0.1_9_openj9-0.17.0-alpine-slim AS builder
 
-MAINTAINER lesh<alexey.lesh@gmail.com>
-
-COPY ./src /builddir
+COPY ./src /builddir/src
 COPY ./gradlew /builddir
 COPY ./gradle /builddir/gradle
+COPY ./*.gradle /builddir/
 
 WORKDIR /builddir
 RUN ./gradlew build
 
-WORKDIR /app
+FROM adoptopenjdk/openjdk13-openj9:jdk-13.0.1_9_openj9-0.17.0-alpine-slim
+MAINTAINER lesh<alexey.lesh@gmail.com>
 
-COPY build/libs/statistics-svc-0.1.0.jar .
+COPY --from=builder builddir/build/libs/statistics-svc-0.1.0.jar /srv/app/
 
-RUN jlink --module-path statistics-svc-0.1.0.jar:$JAVA_HOME/jmods \
-        --add-modules company.challenge \
-        --launcher run=company.challenge/company.challenge.App \
-        --output dist \
-        --compress 2 \
-        --strip-debug \
-        --no-header-files \
-        --no-man-pages
+WORKDIR /srv/app
 
-#https://blog.jdriven.com/2017/11/modular-java-9-runtime-docker-alpine/
+COPY run.sh .
+RUN chmod u+x run.sh
 
-#jlink --module-path statistics-svc-0.1.0.jar:$JAVA_HOME/jmods --add-modules company.challenge --launcher run=company.challenge/company.challenge.App --output dist --compress 2 --strip-debug --no-header-files --no-man-pages
-#/usr/local/jdk-11.jdk/Contents/Home/bin/jlink  --module-path statistics-svc-0.1.0.jar:$JAVA_HOME/jmods --add-modules company.challenge --launcher run=company.challenge/company.challenge.App --output dist --compress 2 --strip-debug --no-header-files --no-man-pages
+CMD ["/srv/app/run.sh"]
