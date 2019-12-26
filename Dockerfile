@@ -1,4 +1,3 @@
-#FROM base-jdk11:latest AS builder
 FROM adoptopenjdk/openjdk13-openj9:jdk-13.0.1_9_openj9-0.17.0-alpine-slim AS builder
 
 COPY ./src /builddir/src
