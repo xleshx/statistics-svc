@@ -1,0 +1,10 @@
+---
+kind: pipeline
+type: docker
+name: default
+
+steps:
+- name: build
+  image: gradle:6.5.0-jre14
+  commands:
+  - gradle build
