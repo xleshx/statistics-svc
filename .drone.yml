@@ -8,3 +8,6 @@ steps:
   image: gradle:6.5.0-jre14
   commands:
   - gradle build
+  when:
+    branch:
+    - master
