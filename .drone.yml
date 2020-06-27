@@ -1,8 +1,9 @@
 ---
 kind: pipeline
-type: docker
+type: kubernetes
 name: default
 steps:
+
 - name: build
   image: gradle:6.5.0-jre14
   commands:
